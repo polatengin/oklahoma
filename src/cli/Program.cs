@@ -1,4 +1,4 @@
-Console.WriteLine("Azure Storage Table - Getting Started sample\n");
+﻿Console.WriteLine("Azure Storage Table - Getting Started sample\n");
 
 var ReadFromTerminal = (string prompt) =>
 {
@@ -17,7 +17,9 @@ await tableClient.CreateIfNotExistsAsync();
 
 Console.WriteLine("Table Storage is ready.");
 
-var newCustomer = new Customer("Smith", "John")
+var suffix = Random.Shared.Next(1000, 9999);
+
+var newCustomer = new Customer($"Smith{suffix}", $"John{suffix}")
 {
   Age = 42
 };
@@ -25,7 +27,7 @@ var newCustomer = new Customer("Smith", "John")
 await tableClient.AddEntityAsync(newCustomer);
 Console.WriteLine("Customer saved.");
 
-var retrieved = await tableClient.GetEntityAsync<Customer>("Smith", "John");
+var retrieved = await tableClient.GetEntityAsync<Customer>($"Smith{suffix}", $"John{suffix}");
 var existingCustomer = retrieved.Value;
 Console.WriteLine($"Retrieved customer: {existingCustomer.FirstName} {existingCustomer.LastName}, Age: {existingCustomer.Age}");
 
@@ -41,7 +43,7 @@ foreach (var c in customers)
 }
 Console.WriteLine($"The query returned {customers.Count()} entities.");
 
-await tableClient.DeleteEntityAsync(existingCustomer.PartitionKey, existingCustomer.RowKey, existingCustomer.ETag);
+await tableClient.DeleteEntityAsync($"{existingCustomer.PartitionKey}", $"{existingCustomer.RowKey}", existingCustomer.ETag);
 Console.WriteLine("Customer deleted.");
 
 public class Customer : ITableEntity
@@ -54,7 +56,11 @@ public class Customer : ITableEntity
   public string FirstName { get; set; }
   public string LastName { get; set; }
 
-  public byte Age { get; set; } = 0;
+  public int Age { get; set; } = 0;
+
+  public Customer()
+  {
+  }
 
   public Customer(string lastName, string firstName)
   {
