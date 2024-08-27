@@ -1,4 +1,4 @@
-﻿Console.WriteLine("Azure Storage Table - Getting Started sample\n");
+Console.WriteLine("Azure Storage Table - Getting Started sample\n");
 
 var ReadFromTerminal = (string prompt) =>
 {
@@ -8,10 +8,10 @@ var ReadFromTerminal = (string prompt) =>
 
 var accountName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_NAME") ?? ReadFromTerminal("Enter your Azure Storage Account name: ");
 var storageAccountKey = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_KEY") ?? ReadFromTerminal("Enter your Azure Storage Account key: ");
-var storageUri = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_URI") ?? $"https://{accountName}.table.core.windows.net";
+var connectionString = $"DefaultEndpointsProtocol=https;AccountName={accountName};AccountKey={storageAccountKey};EndpointSuffix=core.windows.net";
 var tableName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_TABLE_NAME") ?? ReadFromTerminal("Enter your Azure Storage Table name: ");
 
-var tableClient = new TableClient(new Uri(storageUri), tableName, new TableSharedKeyCredential(accountName, storageAccountKey));
+var tableClient = new TableClient(connectionString, tableName);
 
 await tableClient.CreateIfNotExistsAsync();
 
