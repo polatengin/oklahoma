@@ -25,3 +25,11 @@ Console.WriteLine($"Retrieved customer: {existingCustomer.FirstName} {existingCu
 existingCustomer.Age = 43;
 await tableClient.UpdateEntityAsync(existingCustomer, existingCustomer.ETag);
 Console.WriteLine("Customer updated.");
+
+Pageable<Customer> customers = tableClient.Query<Customer>(filter: $"PartitionKey eq '{existingCustomer.PartitionKey}'");
+Console.WriteLine("Queried customers:");
+foreach (var c in customers)
+{
+  Console.WriteLine($"- {c.FirstName}: {c.LastName}, Age: {c.Age}");
+}
+Console.WriteLine($"The query returned {customers.Count()} entities.");
