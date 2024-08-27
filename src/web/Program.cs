@@ -15,5 +15,6 @@ builder.Services.AddSingleton<TableService<Customer>>(sp =>
 });
 
 app.MapGet("/", () => "Hello World!");
+app.MapPost("/customers", async (CustomersHandler handler) => await handler.HandleAsync());
 
 app.Run();
