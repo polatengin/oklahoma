@@ -46,7 +46,7 @@ Console.WriteLine($"The query returned {customers.Count()} entities.");
 await tableClient.DeleteEntityAsync($"{existingCustomer.PartitionKey}", $"{existingCustomer.RowKey}", existingCustomer.ETag);
 Console.WriteLine("Customer deleted.");
 
-public class Customer : ITableEntity
+public record Customer : ITableEntity
 {
   public string PartitionKey { get; set; }
   public string RowKey { get; set; }
@@ -55,7 +55,6 @@ public class Customer : ITableEntity
 
   public string FirstName { get; set; }
   public string LastName { get; set; }
-
   public int Age { get; set; } = 0;
 
   public Customer()
