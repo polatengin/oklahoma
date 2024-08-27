@@ -6,3 +6,7 @@ var storageUri = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_URI")
 var tableName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_TABLE_NAME") ?? "customers";
 
 var tableClient = new TableClient(new Uri(storageUri), tableName, new TableSharedKeyCredential(accountName, storageAccountKey));
+
+await tableClient.CreateIfNotExistsAsync();
+
+Console.WriteLine("Table Storage is ready.");
