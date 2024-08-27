@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="Azure" />
     <Using Include="Azure.Data.Tables" />
   </ItemGroup>
 
