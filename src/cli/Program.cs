@@ -33,7 +33,6 @@ foreach (var c in customers)
 {
   Console.WriteLine($"- {c.FirstName}: {c.LastName}, Age: {c.Age}");
 }
-
 Console.WriteLine($"The query returned {customers.Count()} entities.");
 
 await tableClient.DeleteEntityAsync(existingCustomer.PartitionKey, existingCustomer.RowKey, existingCustomer.ETag);
