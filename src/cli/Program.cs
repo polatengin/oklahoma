@@ -22,3 +22,6 @@ Console.WriteLine("Customer saved.");
 var retrieved = await tableClient.GetEntityAsync<Customer>("Smith", "John");
 var existingCustomer = retrieved.Value;
 Console.WriteLine($"Retrieved customer: {existingCustomer.FirstName} {existingCustomer.LastName}, Age: {existingCustomer.Age}");
+existingCustomer.Age = 43;
+await tableClient.UpdateEntityAsync(existingCustomer, existingCustomer.ETag);
+Console.WriteLine("Customer updated.");
