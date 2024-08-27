@@ -11,4 +11,8 @@
     <PackageReference Include="Azure.Data.Tables" Version="12.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Using Include="Azure.Data.Tables" />
+  </ItemGroup>
+
 </Project>
