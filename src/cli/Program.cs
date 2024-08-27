@@ -1,9 +1,15 @@
 ﻿Console.WriteLine("Azure Storage Table - Getting Started sample\n");
 
-var accountName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_NAME");
-var storageAccountKey = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_KEY");
+var ReadFromTerminal = (string prompt) =>
+{
+  Console.Write(prompt);
+  return Console.ReadLine();
+};
+
+var accountName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_NAME") ?? ReadFromTerminal("Enter your Azure Storage Account name: ");
+var storageAccountKey = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_KEY") ?? ReadFromTerminal("Enter your Azure Storage Account key: ");
 var storageUri = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_URI") ?? $"https://{accountName}.table.core.windows.net";
-var tableName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_TABLE_NAME") ?? "customers";
+var tableName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_TABLE_NAME") ?? ReadFromTerminal("Enter your Azure Storage Table name: ");
 
 var tableClient = new TableClient(new Uri(storageUri), tableName, new TableSharedKeyCredential(accountName, storageAccountKey));
 
