@@ -1,3 +1,9 @@
+public class CustomerListRequestModel
+{
+  public string PartitionKey { get; set; }
+  public string RowKey { get; set; }
+}
+
 public class CustomerListHandler
 {
   TableService<Customer> customerClient;
@@ -11,7 +17,7 @@ public class CustomerListHandler
 
   public async Task<IResult> HandleAsync()
   {
-    var customer = await http.Request.ReadFromJsonAsync<Customer>();
+    var customer = await http.Request.ReadFromJsonAsync<CustomerListRequestModel>();
     if (customer == null)
     {
       return Results.BadRequest();
