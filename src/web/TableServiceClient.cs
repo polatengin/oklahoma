@@ -8,9 +8,11 @@ public class TableService<T> where T : class, ITableEntity
     _tableClient.CreateIfNotExists();
   }
 
-  public async Task AddAsync(T entity)
+  public async Task<T> AddAsync(T entity)
   {
     await _tableClient.AddEntityAsync(entity);
+
+    return entity;
   }
 
   public async Task<T?> GetAsync(string partitionKey, string rowKey)
