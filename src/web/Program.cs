@@ -15,6 +15,9 @@ builder.Services.AddSingleton<TableService<Customer>>(sp =>
   return new TableService<Customer>(tableServiceClient, "customers");
 });
 
+builder.Services.AddScoped<CustomerCreateHandler>();
+builder.Services.AddScoped<CustomerListHandler>();
+
 var app = builder.Build();
 
 app.MapGet("/", () => "Hello World!");
