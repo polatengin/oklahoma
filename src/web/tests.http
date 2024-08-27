@@ -1,3 +1,15 @@
 GET http://localhost:5148/
 
 ###
+
+POST http://localhost:5148/customer-create
+Content-Type: application/json
+
+{
+  "PartitionKey": "Smith1881",
+  "RowKey": "John1881",
+  "FirstName": "Smith1881",
+  "LastName": "John1881"
+}
+
+###
