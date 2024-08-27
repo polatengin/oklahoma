@@ -7,23 +7,20 @@ public class CustomerListRequestModel
 public class CustomerListHandler
 {
   TableService<Customer> customerClient;
-  HttpContext http;
+  HttpContextAccessor http;
 
   public CustomerListHandler(HttpContextAccessor _http, TableService<Customer> _customerClient)
   {
     customerClient = _customerClient;
-    http = _http.HttpContext!;
+    http = _http;
   }
 
   public async Task<IResult> HandleAsync()
   {
-    var customer = await http.Request.ReadFromJsonAsync<CustomerListRequestModel>();
-    if (customer == null)
-    {
-      return Results.BadRequest();
-    }
+    var request = await http.HttpContext!.Request.ReadFromJsonAsync<CustomerListRequestModel>();
 
-    await customerClient.GetAsync(customer.PartitionKey, customer.RowKey);
-    return Results.Created($"/customers/{customer.PartitionKey}/{customer.RowKey}", customer);
+    var customer = await customerClient.GetAsync(request!.PartitionKey, request.RowKey);
+
+    return Results.Ok(customer);
   }
 }
