@@ -18,3 +18,7 @@ var newCustomer = new Customer("Smith", "John")
 
 await tableClient.AddEntityAsync(newCustomer);
 Console.WriteLine("Customer saved.");
+
+var retrieved = await tableClient.GetEntityAsync<Customer>("Smith", "John");
+var existingCustomer = retrieved.Value;
+Console.WriteLine($"Retrieved customer: {existingCustomer.FirstName} {existingCustomer.LastName}, Age: {existingCustomer.Age}");
