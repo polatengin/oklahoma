@@ -5,3 +5,4 @@ var storageAccountKey = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUN
 var storageUri = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_URI") ?? $"https://{accountName}.table.core.windows.net";
 var tableName = Environment.GetEnvironmentVariable("AZURE_STORAGE_ACCOUNT_TABLE_NAME") ?? "customers";
 
+var tableClient = new TableClient(new Uri(storageUri), tableName, new TableSharedKeyCredential(accountName, storageAccountKey));
