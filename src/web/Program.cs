@@ -1,6 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+builder.Services.AddScoped<HttpContextAccessor, HttpContextAccessor>();
+
 builder.Services.AddSingleton<TableServiceClient>(sp =>
 {
   var configuration = sp.GetRequiredService<IConfiguration>();
@@ -15,6 +17,7 @@ builder.Services.AddSingleton<TableService<Customer>>(sp =>
 });
 
 app.MapGet("/", () => "Hello World!");
-app.MapPost("/customers", async (CustomersHandler handler) => await handler.HandleAsync());
+app.MapPost("/customer-create", async (CustomerCreateHandler handler) => await handler.HandleAsync());
+app.MapPost("/customer-list", async (CustomerListHandler handler) => await handler.HandleAsync());
 
 app.Run();
