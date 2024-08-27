@@ -10,3 +10,11 @@ var tableClient = new TableClient(new Uri(storageUri), tableName, new TableShare
 await tableClient.CreateIfNotExistsAsync();
 
 Console.WriteLine("Table Storage is ready.");
+
+var newCustomer = new Customer("Smith", "John")
+{
+  Age = 42
+};
+
+await tableClient.AddEntityAsync(newCustomer);
+Console.WriteLine("Customer saved.");
